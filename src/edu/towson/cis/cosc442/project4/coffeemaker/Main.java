@@ -206,7 +206,7 @@ public class Main {
 	    
 	    //Read in amt chocolate
 	    String chocolateString = inputOutput("Please enter the units of chocolate to add: ");
-	    final int amtChocolate = stringToInt(chocolateString);
+	    int amtChocolate = stringToInt(chocolateString);
 	    if(amtChocolate < 0) {
 	    	mainMenu();
 	    }
