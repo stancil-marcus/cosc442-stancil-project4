@@ -20,9 +20,9 @@ public class CoffeeMakerTest extends TestCase {
 		r1.setName("Coffee");
 		r1.setPrice(2);
 		r1.setAmtCoffee(3);
-		r1.setAmtMilk(1);
-		r1.setAmtSugar(1);
-		r1.setAmtChocolate(0);
+		r1.setAmtMilk(3);
+		r1.setAmtSugar(3);
+		r1.setAmtChocolate(3);
 	}
 
 	/**
@@ -65,6 +65,34 @@ public class CoffeeMakerTest extends TestCase {
 	{
 		Recipe r2 = new Recipe();
 		assertFalse(cm.deleteRecipe(r2));
+	}
+	
+	public void testCanAddRecipe1()
+	{
+		Recipe r2 = new Recipe();
+		r2.setName("toast");
+		r2.setPrice(2);
+		r2.setAmtCoffee(3);
+		r2.setAmtMilk(1);
+		r2.setAmtSugar(1);
+		r2.setAmtChocolate(0);
+		
+		assertTrue(cm.canAddRecipe(r2));
+	}
+	
+	public void testCanAddRecipe2()
+	{
+		Recipe r2 = new Recipe();
+		r2.setName("Coffee");
+		r2.setPrice(50);
+		r2.setAmtCoffee(16);
+		r2.setAmtMilk(16);
+		r2.setAmtSugar(16);
+		r2.setAmtChocolate(16);
+		
+		cm.addRecipe(r1);
+		
+		assertFalse(cm.canAddRecipe(r2));
 	}
 
 	/**
@@ -167,6 +195,17 @@ public class CoffeeMakerTest extends TestCase {
 	{
 		cm.addRecipe(r1);
 		assertEquals(1, cm.makeCoffee(r1, 1), .100);
+	}
+	/**
+	 * Tests if inventory decreases after making a purchase
+	 */
+	public void testMakePurchase3()
+	{
+		cm.makeCoffee(r1, 2);
+		assertSame(12, cm.checkInventory().getCoffee());
+		assertSame(12, cm.checkInventory().getMilk());
+		assertSame(12, cm.checkInventory().getSugar());
+		assertSame(12, cm.checkInventory().getCoffee());
 	}
 	
 	/**
@@ -305,7 +344,12 @@ public class CoffeeMakerTest extends TestCase {
 	 */
 	public void testAddInventory1()
 	{
-		assertTrue(cm.addInventory(1, 1, 0, 1));
+		assertTrue(cm.addInventory(16, 16, 16, 16));
+		
+		assertSame(31, cm.checkInventory().getChocolate());
+		assertSame(31, cm.checkInventory().getMilk());
+		assertSame(31, cm.checkInventory().getSugar());
+		assertSame(31, cm.checkInventory().getCoffee());
 	}
 	
 	/**
@@ -313,6 +357,22 @@ public class CoffeeMakerTest extends TestCase {
 	 */
 	public void testAddInventory2()
 	{
-		assertFalse(cm.addInventory(1, 1, 1, 1));
+		assertFalse(cm.addInventory(-1, -1, -1, -1));
+	}
+	
+	/**
+	 * Tests if you can add a recipe when there is no sugar.
+	 */
+	public void testAddInventory3()
+	{
+		assertTrue(cm.addInventory(1, 1, 0, 0));
+	}
+	
+	/**
+	 * Tests if you can add a recipe when there is no sugar.
+	 */
+	public void testAddInventory4()
+	{
+		assertTrue(cm.addInventory(0, 0, 0, 0));
 	}
 }

@@ -141,11 +141,11 @@ public class InventoryTest extends TestCase{
 		Recipe r2 = new Recipe();
 		
 		r2.setName("Coffee1");
-		r2.setPrice(5);
-		r2.setAmtCoffee(3);
-		r2.setAmtMilk(1);
-		r2.setAmtSugar(1);
-		r2.setAmtChocolate(0);
+		r2.setPrice(15);
+		r2.setAmtCoffee(15);
+		r2.setAmtMilk(15);
+		r2.setAmtSugar(15);
+		r2.setAmtChocolate(15);
 		
 		assertTrue(inv.enoughIngredients(r2));
 	}
@@ -159,10 +159,26 @@ public class InventoryTest extends TestCase{
 		
 		r2.setName("Coffee1");
 		r2.setPrice(50);
-		r2.setAmtCoffee(3);
-		r2.setAmtMilk(1);
-		r2.setAmtSugar(1);
-		r2.setAmtChocolate(0);
+		r2.setAmtCoffee(50);
+		r2.setAmtMilk(200);
+		r2.setAmtSugar(1000);
+		r2.setAmtChocolate(50);
+		
+		assertFalse(inv.enoughIngredients(r2));
+	}
+	/**
+	 * This tests if the enoughIngredients method returns false if there isn't enough ingredients
+	 */
+	public void testEnoughIngredients3()
+	{
+		Recipe r2 = new Recipe();
+		
+		r2.setName("Coffee1");
+		r2.setPrice(50);
+		r2.setAmtCoffee(100);
+		r2.setAmtMilk(50);
+		r2.setAmtSugar(15);
+		r2.setAmtChocolate(50);
 		
 		assertFalse(inv.enoughIngredients(r2));
 	}
@@ -171,10 +187,11 @@ public class InventoryTest extends TestCase{
 	 * Tests if the toString() method returns the correct string
 	 */
 	public void testToString() {
-		assertSame("Coffee: " + inv.getCoffee() + System.lineSeparator() +
-			"Milk: " + inv.getMilk() + System.lineSeparator() +
-			"Sugar: " + inv.getSugar() + System.lineSeparator() +
-			"Chocolate: " + inv.getChocolate() + System.lineSeparator(), inv.toString());
+		
+		assertEquals("Coffee: " + inv.getCoffee() + System.lineSeparator() +
+				"Milk: " + inv.getMilk() + System.lineSeparator() +
+				"Sugar: " + inv.getSugar() + System.lineSeparator() +
+				"Chocolate: " + inv.getChocolate() + System.lineSeparator(), inv.toString());
 	}
 	
 
