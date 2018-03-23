@@ -22,7 +22,7 @@ public class RecipeTest extends TestCase{
 	}
 
 	
-	/**
+	/** 
 	 *Creates a recipe for the test
 	 */
 	@Before
